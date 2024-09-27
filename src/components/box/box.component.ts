@@ -6,7 +6,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { interval, Subscription, take } from 'rxjs';
+import { BehaviorSubject, interval, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-box',
@@ -20,6 +20,7 @@ export class Box implements OnDestroy {
   private _selectedSequence: string[] = [];
   private _totalAvailableSeats: number = 0;
   private _intervalSubscription$!: Subscription;
+  private _holdSelection$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   @Input('seatingArrangements') set seatingArrangements(input: number[][]) {
     this._seating1DArrangement = input.flat();
@@ -43,7 +44,8 @@ export class Box implements OnDestroy {
     const target = event.target as HTMLElement;
     if (
       target.classList.contains('visible') &&
-      !target.classList.contains('selected')
+      !target.classList.contains('selected') && 
+      this._holdSelection$.getValue() === false
     ) {
       const id = target.getAttribute('id') ?? '';
       this.renderer.addClass(target, 'selected');
@@ -55,14 +57,19 @@ export class Box implements OnDestroy {
   private deselectInSequence() {
     const selectedSequenceLength = this._selectedSequence.length;
     if (this._totalAvailableSeats === selectedSequenceLength) {
+      this._holdSelection$.next(true);
       this._intervalSubscription$ = interval(500)
         .pipe(take(this._totalAvailableSeats))
-        .subscribe((_) => {
+        .subscribe({
+          next: (_) => {
           const index = this._selectedSequence.shift();
           const element = this.el.nativeElement
             .querySelector('.box-grid--layout')
             .querySelector(`[id="${index}"]`);
           this.renderer.removeClass(element, 'selected');
+        },
+        error: (e) => console.log(e),
+        complete: () => this._holdSelection$.next(false)
         });
     }
   }
