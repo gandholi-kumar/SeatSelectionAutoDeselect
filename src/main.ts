@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, AsyncPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { Subject, BehaviorSubject } from 'rxjs';
 import { Box } from './components/box/box.component';
 
 @Component({
@@ -13,6 +12,7 @@ import { Box } from './components/box/box.component';
 export class App implements OnInit {
 
   seatingArrangements: number[][] = [[1,1,1], [1,0,0], [1,0,1]];
+  seatingArrangements2: number[][] = [[1,0,1,1,0], [1,0,0, 1,0], [1,0,1,0,1], [1,1,1, 1,1], [0,0,1,1,1]];
 
   ngOnInit(): void {
     console.log('On init!!');
