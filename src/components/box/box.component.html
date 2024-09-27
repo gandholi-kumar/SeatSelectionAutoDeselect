@@ -1,0 +1,13 @@
+This is box component!
+
+<div class="box-grid--layout" (click)="handleClick($event)" #boxContainer>
+  <ng-container *ngFor="let val of seatingArrangements; let i = index">
+    <div
+      [ngClass]="{ visible: val === 1, hidden: val === 0 }"
+      class="box-container"
+      data-id="{{ i }}"
+    >
+      {{ i }}
+    </div>
+  </ng-container>
+</div>
