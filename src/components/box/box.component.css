@@ -1,6 +1,6 @@
 .box-grid--layout {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: fit-content;
 }
@@ -16,12 +16,18 @@
   cursor: pointer;
 }
 
-.hidden {
-  /* opacity: 0; */
-  background-color: grey;
+.disabled {
+  background-color: rgb(135, 131, 131);
 }
 
 .selected {
   background-color: #0bcc59;
   transition: all 0.5s ease-in;
+}
+
+.box-dynamicGrid--layout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  width: fit-content;
 }
