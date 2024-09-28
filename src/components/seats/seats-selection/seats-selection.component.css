@@ -1,18 +1,27 @@
-.box-grid--layout {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.box-layout {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.box-container {
+  display: flex;
   gap: 20px;
   width: fit-content;
 }
 
-.box-container {
+.box-item {
+  display: flex;
   width: 50px;
   height: 50px;
   border: 1px solid black;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
 .visible {
-  display: block;
+  display: flex;
   cursor: pointer;
 }
 
@@ -25,9 +34,6 @@
   transition: all 0.5s ease-in;
 }
 
-.box-dynamicGrid--layout {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  width: fit-content;
+.row {
+  flex: 1;
 }
