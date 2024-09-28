@@ -1,0 +1,14 @@
+<div class="box-layout">
+  <h2> Seats</h2>
+  <div class="box-container" (click)="handleSeatSelectionClick($event)">
+    <ng-container *ngFor="let row of seatingArrangement; let rowIndex = index">
+      <div class="row">
+        <ng-container *ngFor="let col of row; let colIndex = index">
+          <div [ngClass]="col === 1 ? 'visible' : 'disabled'" class="box-item" data-id="{{ rowIndex }}{{colIndex}}">
+            {{ rowIndex }}{{ colIndex }}
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>
